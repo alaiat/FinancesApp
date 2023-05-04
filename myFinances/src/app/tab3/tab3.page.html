@@ -1,17 +1,25 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 3
+    <ion-buttons slot="start">
+      <ion-button class="button" (click) = "toggleMenu()">
+        <ion-icon name="menu" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title style="text-align: center; margin-right: 5%;">
+      Your Finances
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
+<!--Contenido dentro de la tab-->
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <div class="container">
+    <h2 class="title" style="color: black;">Welcome to your self-management finance application</h2>
+    <p class="description" style="color: black;">Here you can keep track of your income and expenses</p>
+    <h5 style="color: black;"><u>Actual Balance:</u> 200€</h5>
+  </div>
+  
 </ion-content>
+
+
+

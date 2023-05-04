@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MenuController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -7,6 +8,14 @@ import { Component } from '@angular/core';
 })
 export class Tab1Page {
 
-  constructor() {}
+  constructor(private navController: NavController, private menuCtrl: MenuController) {}
 
+  // Función para navegar a otra página
+  goToPage(pageName: string) {
+    this.navController.navigateForward(pageName);
+  }
+
+  toggleMenu(){
+    this.menuCtrl.toggle();
+  }
 }

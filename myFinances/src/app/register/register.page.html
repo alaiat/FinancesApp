@@ -1,10 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title style="text-align: center;">Register</ion-title>
+    <ion-title style="text-align: center; font-family: Arial, Helvetica, sans-serif;">Register</ion-title>
+    <p slot="start" (click)="home()" class="home"><u>Home</u></p>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" style="background-color: whitesmoke;">
   <div class="container">
     <ion-content>
       <!--<form (ngSubmit)="onSubmit()">-->
@@ -28,6 +29,8 @@
         </ion-item>
 
         <ion-button type="submit" expand="block">Register</ion-button>
+
+        <a href="/login" class="already">Already having an account? Login</a>
       </form>
     </ion-content>
   </div>

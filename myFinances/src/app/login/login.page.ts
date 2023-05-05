@@ -14,6 +14,5 @@ export class LoginPage implements OnInit {
 
   home() {
     this.router.navigateByUrl('/tabs/tab1');
-    console.log('hola')
   }
 }

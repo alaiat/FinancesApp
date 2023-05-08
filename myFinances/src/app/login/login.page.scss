@@ -1,26 +1,26 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    background-color: whitesmoke;
-    font-family: Arial, Helvetica, sans-serif;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: whitesmoke;
+  font-family: Arial, Helvetica, sans-serif;
+}
 
 .home:hover{
-    cursor: pointer;
-    color: white;
+  cursor: pointer;
+  color: white;
 }
 
 ion-toolbar {
-  --background: #15DC4E;
-  --color: black;
+--background: #15DC4E;
+--color: black;
 }
 
 ion-tab-bar {
-  --background: #15DC4E;
-  --color: black;
+--background: #15DC4E;
+--color: black;
 }
 
 ion-button {
@@ -60,3 +60,11 @@ ion-content {
 --background:whitesmoke;
 }
 
+.already {
+margin-top: 20px; 
+color: black;
+}
+
+.already:hover {
+color: #15DC4E;
+}

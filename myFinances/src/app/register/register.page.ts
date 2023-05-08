@@ -30,6 +30,7 @@ export class RegisterPage implements OnInit {
             name: this.user.name,
             email: this.user.email,
             createdAt: Date.now(),
+            password: this.user.password
           }).then(() => {
             this.router.navigateByUrl('/tabs/tab1');
           });
@@ -41,5 +42,4 @@ export class RegisterPage implements OnInit {
       });
     }
   }
-  
 }

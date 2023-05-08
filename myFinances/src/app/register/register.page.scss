@@ -33,11 +33,15 @@ ion-button {
   }
   
   ion-button:hover {
-  --background: #039D2E;
-  --border-radius: 15%;
-  border-radius: 15%;
-  box-shadow: 0px 0px 20px 5px #039D2E;
-  --color: white;
+    --background: #039D2E;
+    --border-radius: 15%;
+    border-radius: 15%;
+    box-shadow: 0px 0px 20px 5px #039D2E;
+    --color: white;
+    }
+
+  ion-button:visited {
+    animation: giro infinite 2s linear;
   }
 
 ion-item {
@@ -48,7 +52,7 @@ ion-item {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-form {
+ion-list {
   background-color: whitesmoke;
   display: flex;
   align-items: center;

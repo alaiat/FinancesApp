@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {AngularFireDatabase} from '@angular/fire/compat/database';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-register',
@@ -25,7 +26,7 @@ export class RegisterPage implements OnInit {
       this.auth.createUserWithEmailAndPassword(this.user.email, this.user.password).then((r) => {
         if (r?.user) {
           console.log(r.user);
-  
+
           this.afDB.object('users/' + r.user.uid).set({
             name: this.user.name,
             email: this.user.email,

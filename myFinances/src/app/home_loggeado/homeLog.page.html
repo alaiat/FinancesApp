@@ -1,0 +1,75 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button class="button" (click) = "toggleMenu()">
+        <ion-icon name="menu" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title style="text-align: center; margin-right: 5%;">
+      Your Finances
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<div class="container">
+  <div id="buttonContainer" class="contenedor-botones">
+    <button class="container-button" (click)="mostrarFormulario1()">DECLARE EXPENSE</button>
+    <button class="container-button" (click)="mostrarFormulario2()">DECLAR INCOME</button>
+    <button class="container-button" (click)="mostrarFormulario3()">DECLARE CATEGORY LIMIT</button>
+  </div>
+  <div class="contenedor-formularios">
+    <form id="formulario1" style="display:none;">
+      <button class="close-button" (click)="cerrarFormulario('formulario1')">Cerrar</button>
+      <h2 class="form-title" >DECLARE EXPENSE</h2><br>
+      <div class="form-group">
+        <label for="campo1-1">Cantidad:</label>
+        <input type="text" id="campo1-1" name="campo1-1">
+      </div>
+
+      <div class="form-group">
+        <label for="campo1-2">Categoria:</label>
+        <select> id="campo1-2" name="campo1-2"></select>
+      </div>
+
+      <div class="form-group">
+        <label for="campo1-3">Campo 3:</label>
+        <input type="text" id="campo1-3" name="campo1-3">
+      </div>
+
+      <button class="submit-button" (click)="enviarRespuestas('formulario1')">Enviar</button>
+    </form>
+
+    <form id="formulario2" style="display:none;">
+      <button class="close-button" (click)="cerrarFormulario('formulario2')">Cerrar</button>
+      <h2 class="form-title" >DECLARE INCOME</h2><br>
+      <div class="form-group">
+        <label for="campo2-1">Cantidad:</label>
+        <input type="text" id="campo2-1" name="campo2-1">
+      </div>
+
+      <div class="form-group">
+        <label for="campo2-2">Campo 2:</label>
+        <input type="text" id="campo2-2" name="campo2-2">
+      </div>
+
+      <button class="submit-button" (click)="enviarRespuestas('formulario2')">Enviar</button>
+    </form>
+
+    <form id="formulario3" style="display:none;">
+      <button class="close-button" (click)="cerrarFormulario('formulario3')">Cerrar</button>
+      <h2 class="form-title" >DECLARE CATEGORY LIMIT</h2><br>
+      <div class="form-group">
+        <label for="campo3-1">Categoria:</label>
+        <input type="text" id="campo3-1" name="campo3-1">
+      </div>
+
+      <div class="form-group">
+        <label for="campo3-2">Limite mensual:</label>
+        <input type="text" id="campo3-2" name="campo3-2">
+      </div>
+
+      <button class="submit-button" (click) ="enviarRespuestas('formulario3')">Enviar</button>
+    </form>
+  </div>
+</div>

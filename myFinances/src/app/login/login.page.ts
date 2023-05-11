@@ -23,7 +23,7 @@ export class LoginPage implements OnInit {
         // Navigate to the home page
         console.log('Logged in!');
         this.authService.setLoggedIn(true);
-        this.router.navigateByUrl('/tabs');
+        this.router.navigateByUrl('/tabs/home_loggeado');
       })
       .catch((error) => {
         // Handle login error

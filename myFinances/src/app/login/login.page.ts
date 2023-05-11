@@ -22,11 +22,14 @@ export class LoginPage implements OnInit {
       .then(() => {
         // Navigate to the home page
         console.log('Logged in!');
+        this.authService.setLoggedIn(true);
+        this.router.navigateByUrl('/tabs');
       })
       .catch((error) => {
         // Handle login error
         alert("The email or password you entered is incorrect.");
       });
+
   }
 
   ngOnInit() {

@@ -16,8 +16,16 @@ const routes: Routes = [
         loadChildren: () => import('../goals/goals.module').then(m => m.GoalsPageModule)
       },
       {
+        path: 'goals_loggeado',
+        loadChildren: () => import('../goals_loggeado/goalsLog.module').then(m => m.GoalsLogPageModule)
+      },
+      {
         path: 'settings',
         loadChildren: () => import('../settingsPage/settings.module').then(m => m.SettingsPageModule)
+      },
+      {
+        path: 'settings_loggeado',
+        loadChildren: () => import('../settingsLogPage/settingsLog.module').then(m => m.SettingsLogPageModule)
       },
       {
         path: 'home_loggeado',

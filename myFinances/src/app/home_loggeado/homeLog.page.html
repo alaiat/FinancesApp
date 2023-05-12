@@ -11,13 +11,27 @@
   </ion-toolbar>
 </ion-header>
 
-
 <div class="container">
-  <div id="buttonContainer" class="contenedor-botones">
-    <button class="container-button" (click)="mostrarFormulario1()">DECLARE EXPENSE</button>
-    <button class="container-button" (click)="mostrarFormulario2()">DECLAR INCOME</button>
-    <button class="container-button" (click)="mostrarFormulario3()">DECLARE CATEGORY LIMIT</button>
-  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="full" (click)="mostrarFormulario1()">DECLARE EXPENSE</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="full" (click)="mostrarFormulario2()">DECLARE INCOME</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="full" (click)="mostrarFormulario3()">DECLARE CATEGORY LIMIT</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+
   <div class="contenedor-formularios">
     <form id="formulario1" style="display:none;">
       <button class="close-button" (click)="cerrarFormulario('formulario1')">Cerrar</button>
@@ -26,6 +40,27 @@
         <label for="campo1-1">Cantidad:</label>
         <input type="text" id="campo1-1" name="campo1-1">
       </div>
+
+      <ion-content id="formulario1">
+        <ion-list>
+          <ion-item>
+            <ion-button fill="clear" (click)="cerrarFormulario('formulario1')">Cerrar</ion-button>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       <div class="form-group">
         <label for="campo1-2">Categoria:</label>

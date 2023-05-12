@@ -18,7 +18,7 @@ export class RegisterPage implements OnInit {
   }
 
   home() {
-    this.router.navigateByUrl('/tabs/tab1');
+    this.router.navigateByUrl('/tabs/home');
   }
 
   register() {
@@ -33,7 +33,7 @@ export class RegisterPage implements OnInit {
             createdAt: Date.now(),
             password: this.user.password
           }).then(() => {
-            this.router.navigateByUrl('/tabs/tab1');
+            this.router.navigateByUrl('/login');
           });
         } else {
           console.log('Error creating user. User object is null.');

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MenuController, NavController } from '@ionic/angular';
-
+import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 @Component({
   selector: 'app-homeLog',
   templateUrl: 'homeLog.page.html',
@@ -8,7 +9,7 @@ import { MenuController, NavController } from '@ionic/angular';
 })
 export class HomeLog {
 
-  constructor(private menuCtrl: MenuController) {}
+  constructor(private menuCtrl: MenuController, private afDB: AngularFireDatabase, private afAuth: AngularFireAuth) {}
 
   toggleMenu(){
     this.menuCtrl.toggle();
@@ -104,8 +105,22 @@ export class HomeLog {
     }
   }
 
-  enviarRespuestas(formularioId: string) {
-    // Aquí puedes agregar la lógica para enviar las respuestas del formulario
-    console.log("Respuestas del formulario " + formularioId + " enviadas con éxito.");
+  declareIncome() {
+    const incomeValue = (document.getElementById('income-input') as HTMLInputElement).value;
+    this.afAuth.currentUser.then((user) => {
+    if (user) {
+      //Authenticated user
+      const incomeRef = this.afDB.list(`users/${user.uid}/income`);
+      incomeRef.push(incomeValue).then(() => {
+    console.log('Income successfully saved!');
+  }).catch((error) => {
+    console.error('Error saving income', error);
+  });
+    } else {
+      console.log('No user found');
+    }
+  }).catch((error) => {
+    console.error('Error', error);
+  });
   }
 }

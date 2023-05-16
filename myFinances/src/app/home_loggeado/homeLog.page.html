@@ -50,17 +50,17 @@
 
          <ion-input label="Quantity" labelPlacement="floating" placeholder="Enter a quantity" style="color: black;"></ion-input><br>
 
-        <ion-button (click)="enviarRespuestas('formulario1')" class="send" style="margin-left: 40%;">Send</ion-button>
+        <ion-button (click)="declareIncome()" class="send" style="margin-left: 40%;">Send</ion-button>
       </form>
 
       <form id="formulario2" style="display:none;">
         <button class="close-button" (click)="cerrarFormulario('formulario2')" style="color: black; background-color: whitesmoke;"><u>Close</u></button>
         <h2 class="form-title"  style="color: black; margin-left: 25%;">DECLARE INCOME</h2><br>
-        <ion-input label="Income" labelPlacement="floating" placeholder="Enter an income" style="color: black;"></ion-input><br>
+        <ion-input id="income-input" label="Income" labelPlacement="floating" placeholder="Enter an income" style="color: black;"></ion-input><br>
 
 
 
-        <ion-button (click)="enviarRespuestas('formulario2')" class="send">Send</ion-button>
+        <ion-button (click)="declareIncome()" class="send">Send</ion-button>
       </form>
 
       <form id="formulario3" style="display:none;">
@@ -78,7 +78,7 @@
 
         <ion-input label="Limit" labelPlacement="floating" placeholder="Enter a limit" style="color: black;"></ion-input><br>
 
-        <ion-button  (click) ="enviarRespuestas('formulario3')" class="send">Send</ion-button>
+        <ion-button  (click) ="declareIncome()" class="send">Send</ion-button>
       </form>
     </ion-card>
   </div>

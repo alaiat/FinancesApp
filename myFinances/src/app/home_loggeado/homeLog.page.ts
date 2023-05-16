@@ -25,6 +25,10 @@ export class HomeLog {
     if (card) {
       card.setAttribute('style', 'background-color: #f5f5f5; width: 40%; border:black 2px solid;');
     }
+    const welcome = document.getElementById("welcome")
+    if (welcome!==null){
+      welcome.style.display="none"
+    }
     const formulario = document.getElementById("formulario1");
     if (formulario) {
       if (formulario.style.display === "block") {
@@ -44,6 +48,10 @@ export class HomeLog {
     if (card) {
       card.setAttribute('style', 'background-color: #f5f5f5; width: 40%; border:black 2px solid;');
     }
+    const welcome = document.getElementById("welcome")
+    if (welcome!==null){
+      welcome.style.display="none"
+    }
     const formulario = document.getElementById("formulario2");
     if (formulario) {
       if (formulario.style.display === "block") {
@@ -62,6 +70,10 @@ export class HomeLog {
     const card = document.querySelector('ion-card.contenedor-formularios');
     if (card) {
       card.setAttribute('style', 'background-color: #f5f5f5; width: 40%; border:black 2px solid;');
+    }
+    const welcome = document.getElementById("welcome")
+    if (welcome!==null){
+      welcome.style.display="none"
     }
     const formulario = document.getElementById("formulario3");
     if (formulario) {
@@ -108,14 +120,16 @@ export class HomeLog {
 
   declareIncome() {
     const incomeValue = (document.getElementById('income-input') as HTMLInputElement).value;
+    const incomeDesc = (document.getElementById('desc-input') as HTMLInputElement).value;
     this.afAuth.currentUser.then((user) => {
     if (user) {
       //Authenticated user
       const incomeRef = this.afDB.list(`users/${user.uid}/income`);
-      incomeRef.push(incomeValue).then(() => {
+      incomeRef.push({ incomeDesc, incomeValue}).then(() => {
       console.log('Income successfully saved!');
       alert('Income successfully saved!');
       (document.getElementById('income-input') as HTMLInputElement).value = '';
+      (document.getElementById('desc-input') as HTMLInputElement).value = '';
   }).catch((error) => {
     console.error('Error saving income', error);
   });

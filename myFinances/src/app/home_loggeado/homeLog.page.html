@@ -33,11 +33,7 @@
       <form id="formulario1" style="display:none;">
         <button class="close-button" (click)="cerrarFormulario('formulario1')" style="color: black; background-color: whitesmoke;"><u>Close</u></button>
         <h2 class="form-title" style="color: black; margin-left: 25%;">DECLARE EXPENSE</h2><br>
-
-
         <ion-input id="description-input" label="Description" labelPlacement="floating" placeholder="Enter a description" style="color: black;"></ion-input>
-
-
         <ion-list style="background-color: #f5f5f5;">
           <ion-item>
             <ion-select aria-label="fruit" placeholder="Category" id="category-select">
@@ -47,19 +43,15 @@
             </ion-select>
           </ion-item>
         </ion-list>
-
          <ion-input id="quantity-input" label="Quantity" labelPlacement="floating" placeholder="Enter a quantity" style="color: black;"></ion-input><br>
-
         <ion-button (click)="declareExpense()" class="send" style="margin-left: 40%;">Send</ion-button>
       </form>
 
       <form id="formulario2" style="display:none;">
         <button class="close-button" (click)="cerrarFormulario('formulario2')" style="color: black; background-color: whitesmoke;"><u>Close</u></button>
         <h2 class="form-title"  style="color: black; margin-left: 25%;">DECLARE INCOME</h2><br>
+        <ion-input id="desc-input" label="Description" labelPlacement="floating" placeholder="Enter a description" style="color: black;"></ion-input><br>
         <ion-input id="income-input" label="Income" labelPlacement="floating" placeholder="Enter an income" style="color: black;"></ion-input><br>
-
-
-
         <ion-button (click)="declareIncome()" class="send">Send</ion-button>
       </form>
 
@@ -75,10 +67,9 @@
             </ion-select>
           </ion-item>
         </ion-list>
-
         <ion-input label="Limit" labelPlacement="floating" placeholder="Enter a limit" style="color: black;"></ion-input><br>
-
         <ion-button  (click) ="declareIncome()" class="send">Send</ion-button>
       </form>
+      <p id="welcome" style="display: block; color: black;">Welcome to your finances application, now you are logged in.</p>
     </ion-card>
   </div>

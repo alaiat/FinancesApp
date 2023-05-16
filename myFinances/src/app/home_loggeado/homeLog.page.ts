@@ -126,4 +126,29 @@ export class HomeLog {
     console.error('Error', error);
   });
   }
+
+  async declareExpense() {
+    const description = (document.getElementById('description-input') as HTMLInputElement).value;
+    const category = (document.getElementById('category-select') as HTMLIonSelectElement).value;
+    const quantity = (document.getElementById('quantity-input') as HTMLInputElement).value;
+  
+    try {
+      const currentUser = await this.afAuth.currentUser;
+      if (currentUser) {
+        const expenseRef = this.afDB.list(`users/${currentUser.uid}/expenses`);
+        await expenseRef.push({ description, category, quantity });
+        alert('Expense successfully saved!');
+        (document.getElementById('description-input') as HTMLInputElement).value = '';
+        (document.getElementById('category-select') as HTMLIonSelectElement).value = '';
+        (document.getElementById('quantity-input') as HTMLInputElement).value = '';
+      } else {
+        console.log('No user found');
+        // Mostrar una notificación o mensaje de error aquí
+      }
+    } catch (error) {
+      console.error('Error saving expense', error);
+      // Mostrar una notificación o mensaje de error aquí
+    }
+  }
+  
 }

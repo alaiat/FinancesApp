@@ -35,22 +35,22 @@
         <h2 class="form-title" style="color: black; margin-left: 25%;">DECLARE EXPENSE</h2><br>
 
 
-        <ion-input label="Description" labelPlacement="floating" placeholder="Enter a description" style="color: black;"></ion-input>
+        <ion-input id="description-input" label="Description" labelPlacement="floating" placeholder="Enter a description" style="color: black;"></ion-input>
 
 
         <ion-list style="background-color: #f5f5f5;">
           <ion-item>
-            <ion-select aria-label="fruit" placeholder="Category">
-              <ion-select-option value="apples">Sport</ion-select-option>
-              <ion-select-option value="oranges">Food</ion-select-option>
-              <ion-select-option value="bananas">Bananas</ion-select-option>
+            <ion-select aria-label="fruit" placeholder="Category" id="category-select">
+              <ion-select-option value="Sport">Sport</ion-select-option>
+              <ion-select-option value="Food">Food</ion-select-option>
+              <ion-select-option value="Games">Games</ion-select-option>
             </ion-select>
           </ion-item>
         </ion-list>
 
-         <ion-input label="Quantity" labelPlacement="floating" placeholder="Enter a quantity" style="color: black;"></ion-input><br>
+         <ion-input id="quantity-input" label="Quantity" labelPlacement="floating" placeholder="Enter a quantity" style="color: black;"></ion-input><br>
 
-        <ion-button (click)="declareIncome()" class="send" style="margin-left: 40%;">Send</ion-button>
+        <ion-button (click)="declareExpense()" class="send" style="margin-left: 40%;">Send</ion-button>
       </form>
 
       <form id="formulario2" style="display:none;">

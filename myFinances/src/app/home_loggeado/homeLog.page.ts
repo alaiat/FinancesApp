@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { MenuController, NavController } from '@ionic/angular';
+import { MenuController, NavController} from '@ionic/angular';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-homeLog',
   templateUrl: 'homeLog.page.html',
@@ -9,7 +10,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class HomeLog {
 
-  constructor(private menuCtrl: MenuController, private afDB: AngularFireDatabase, private afAuth: AngularFireAuth) {}
+  constructor(private menuCtrl: MenuController, private afDB: AngularFireDatabase, private afAuth: AngularFireAuth, private router: Router) {}
 
   toggleMenu(){
     this.menuCtrl.toggle();
@@ -112,7 +113,9 @@ export class HomeLog {
       //Authenticated user
       const incomeRef = this.afDB.list(`users/${user.uid}/income`);
       incomeRef.push(incomeValue).then(() => {
-    console.log('Income successfully saved!');
+      console.log('Income successfully saved!');
+      alert('Income successfully saved!');
+      (document.getElementById('income-input') as HTMLInputElement).value = '';
   }).catch((error) => {
     console.error('Error saving income', error);
   });

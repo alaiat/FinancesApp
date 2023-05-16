@@ -13,4 +13,8 @@ export class GoalsPage {
   toggleMenu(){
     this.menuCtrl.toggle();
   }
+
+  redirect(){
+    window.location.href = "/login";
+  }
 }

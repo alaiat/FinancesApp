@@ -19,6 +19,10 @@ export class HomeLog {
       buttons.style.display="none"
     }
     this.ocultarForms();
+    const card = document.querySelector('ion-card.contenedor-formularios');
+    if (card) {
+      card.setAttribute('style', 'background-color: #f5f5f5; width: 40%; border:black 2px solid;');
+    }
     const formulario = document.getElementById("formulario1");
     if (formulario) {
       if (formulario.style.display === "block") {
@@ -34,6 +38,10 @@ export class HomeLog {
       buttons.style.display="none"
     }
     this.ocultarForms();
+    const card = document.querySelector('ion-card.contenedor-formularios');
+    if (card) {
+      card.setAttribute('style', 'background-color: #f5f5f5; width: 40%; border:black 2px solid;');
+    }
     const formulario = document.getElementById("formulario2");
     if (formulario) {
       if (formulario.style.display === "block") {
@@ -49,6 +57,10 @@ export class HomeLog {
       buttons.style.display="none"
     }
     this.ocultarForms();
+    const card = document.querySelector('ion-card.contenedor-formularios');
+    if (card) {
+      card.setAttribute('style', 'background-color: #f5f5f5; width: 40%; border:black 2px solid;');
+    }
     const formulario = document.getElementById("formulario3");
     if (formulario) {
       if (formulario.style.display === "block") {
@@ -84,8 +96,12 @@ export class HomeLog {
     var buttons = document.getElementById("buttonContainer")
     if (buttons!==null){
       buttons.style.display="flex"
+      buttons.style.flexDirection="column"
     }
-
+    const card = document.querySelector('ion-card.contenedor-formularios');
+    if (card) {
+      card.setAttribute('style', 'background-color: whitesmoke;');
+    }
   }
 
   enviarRespuestas(formularioId: string) {

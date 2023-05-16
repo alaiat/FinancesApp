@@ -18,70 +18,45 @@
   text-align: center;
 }
 
-.container-button {
-  font-size: 18px;
-  padding: 10px 20px;
-  border-radius: 10px;
-  background-color: #3190A3;
-  color: white;
-  margin-bottom: 20px;
-  cursor: pointer;
+.buttons {
+  margin-top: 50px;
 }
 
-.button{
-  background-color:  transparent  ;
-}
-.contenedor-botones {
-  display: flex;
-  flex-direction: column;
-
+ion-item {
+  --background: #f5f5f5;
+  --color:black;
 }
 
-.contenedor-botones button {
-  margin-right: 10px;
-}
-
-.contenedor-formularios form {
-  margin-top: 20px;
-}
-.form-group {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.form-group label {
-  width: 120px;
-  margin-right: 10px;
-}
-
-.form-group input[type="text"] {
+ion-button {
+  --background: #15DC4E;
+  --color:black;
   width: 300px;
-  height: 40px;
-  font-size: 16px;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-.form-title {
-  text-align: center;
-}
+  margin-top: 50px;
+  font-family: Arial, Helvetica, sans-serif;
+  --border-radius: 15%;
+  }
+  
+  ion-button:hover {
+  --background: #039D2E;
+  --border-radius: 15%;
+  border-radius: 15%;
+  box-shadow: 0px 0px 20px 5px #039D2E;
+  --color: white;
+  }
 
-.submit-button {
-  background-color: #3190A3; /* Color de fondo */
-  border: none; /* Sin borde */
-  color: white; /* Color de texto */
-  padding: 10px 20px; /* Espacio interno */
-  text-align: center; /* Alineación del texto */
-  text-decoration: none; /* Sin subrayado */
-  display: inline-block; /* Como elemento en línea */
-  font-size: 16px; /* Tamaño de fuente */
-  margin: 10px 0; /* Espacio externo */
-  cursor: pointer; /* Cambio de cursor al pasar el mouse */
-  border-radius: 4px; /* Bordes redondeados */
-  transition-duration: 0.4s; /* Duración de la transición */
-}
+  .send{
+    --background: #15DC4E;
+    --color:black;
+    width: 100px;
+    margin-top: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+    --border-radius: 15%;
+  }
 
-.submit-button:hover {
-  background-color: #45a049; /* Color de fondo al pasar el mouse */
-}
+  .send:hover {
+    --background: #039D2E;
+    --border-radius: 15%;
+    border-radius: 15%;
+    box-shadow: 0px 0px 20px 5px #039D2E;
+    --color: white;
+    }

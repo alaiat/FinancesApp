@@ -12,4 +12,8 @@ export class SettingsPage {
   toggleMenu(){
     this.menuCtrl.toggle();
   }
+
+  redirect(){
+    window.location.href = "/login";
+  }
 }

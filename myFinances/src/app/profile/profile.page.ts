@@ -12,6 +12,7 @@ export class ProfilePage implements OnInit {
   userEmail: string = '';
   userTel: string = '';
   userAboutMe: string = '';
+  userProfileImage: string = '';
   constructor(private router:Router, private afDB: AngularFireDatabase, private afAuth: AngularFireAuth) { }
 
   ngOnInit() {
@@ -32,6 +33,7 @@ export class ProfilePage implements OnInit {
         this.userEmail = userData.email;
         this.userTel = userData.phone;
         this.userAboutMe = userData.aboutMe;
+        this.userProfileImage = userData.imageURL;
       });
     }
   }
@@ -70,4 +72,29 @@ export class ProfilePage implements OnInit {
       alert('About me must have 120 digits or less');
     }
   }
+
+  async onProfilePictureChange(event: any) {
+    const file = event?.target?.files[0];
+  
+    if (file) {
+      const reader = new FileReader();
+      const currentUser = await this.afAuth.currentUser;
+      reader.onload = (event) => {
+        const imageUrl = event.target?.result as string;
+        if (imageUrl) {
+          this.userProfileImage = imageUrl;
+          if (currentUser) {
+            const userRef = this.afDB.object(`users/${currentUser.uid}`);
+            userRef.update({ imageURL: this.userProfileImage }).then(() => {
+              alert('Image successfully saved!');
+            }).catch((error) => {
+              console.error('Error saving image', error);
+            });
+          }
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
 }

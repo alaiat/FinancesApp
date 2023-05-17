@@ -5,9 +5,10 @@
         <ion-icon name="menu" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title style="text-align: center; margin-right: 5%;">
+    <ion-title style="text-align: center; margin-left: 100px;">
       Your Finances
     </ion-title>
+    <p slot="end" style="margin-right: 20px;">Actual Balance: {{currentBalance}} €</p>
   </ion-toolbar>
 </ion-header>
 
@@ -35,7 +36,7 @@
       <button class="close-button" (click)="cerrarFormulario('formulario1')" style="color: black; background-color: whitesmoke;"><u>Close</u></button>
       <h2 class="form-title" style="color: black; margin-left: 25%;">DECLARE EXPENSE</h2><br>
       <ion-input id="description-input" label="Description" labelPlacement="floating" placeholder="Enter a description" style="color: black;"></ion-input>
-      <category-select></category-select>
+      <category-select style="background-color: #f5f5f5;"></category-select>
       <ion-input id="quantity-input" label="Quantity" labelPlacement="floating" placeholder="Enter a quantity" style="color: black;"></ion-input><br>
       <ion-button (click)="declareExpense()" class="send" style="margin-left: 40%;">Send</ion-button>
     </form>
@@ -51,15 +52,7 @@
     <form id="formulario3" style="display:none;">
       <button class="close-button" (click)="cerrarFormulario('formulario3')" style="color: black; background-color: whitesmoke;"><u>Close</u></button>
       <h2 class="form-title" style="color: black; margin-left: 19%;">DECLARE CATEGORY LIMIT</h2><br>
-      <ion-list style="background-color: #f5f5f5;">
-        <ion-item>
-          <ion-select aria-label="fruit" placeholder="Category">
-            <ion-select-option value="apples">Apples</ion-select-option>
-            <ion-select-option value="oranges">Oranges</ion-select-option>
-            <ion-select-option value="bananas">Bananas</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-list>
+      <category-select></category-select>
       <ion-input label="Limit" labelPlacement="floating" placeholder="Enter a limit" style="color: black;"></ion-input><br>
       <ion-button (click)="declareIncome()" class="send" style="margin-left: 40%;">Send</ion-button>
     </form>

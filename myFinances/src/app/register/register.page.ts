@@ -31,7 +31,8 @@ export class RegisterPage implements OnInit {
             name: this.user.name,
             email: this.user.email,
             createdAt: Date.now(),
-            password: this.user.password
+            password: this.user.password,
+            balance: 0
           }).then(() => {
             this.router.navigateByUrl('/login');
           });

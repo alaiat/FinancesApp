@@ -31,7 +31,7 @@ export class CategorySelectComponent implements OnInit {
       if (user) {
         const categoriesRef = this.afDB.list(`users/${user.uid}/categories`);
         categoriesRef.valueChanges().pipe(
-          map((categories: any[]) => categories.map(category => category))
+          map((categories: any[]) => categories.map(category => category.category))
         ).subscribe((categories: string[]) => {
           this.categoryOptions = categories;
         });

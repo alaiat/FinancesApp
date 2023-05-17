@@ -20,5 +20,10 @@ export class AppComponent {
     this.router.navigateByUrl('/tipcalc');
     this.menuController.close();
   }
+
+  profile(){
+    this.router.navigateByUrl('/profile');
+    this.menuController.close();
+  }
 }
 

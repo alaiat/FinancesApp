@@ -9,6 +9,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class GoalsLogPage implements OnInit{
   currentBalance!: number;
+  balanceColor: string = '';
   constructor(private menuCtrl: MenuController, private afDB: AngularFireDatabase, private afAuth: AngularFireAuth) {}
 
   ngOnInit() {
@@ -27,6 +28,7 @@ export class GoalsLogPage implements OnInit{
           (balance: number | null) => {
             if (balance !== null) {
               this.currentBalance = balance;
+              this.balanceColor = this.currentBalance < 0 ? 'red' : '';
             } else {
               this.currentBalance = 0; // O cualquier otro valor predeterminado
             }

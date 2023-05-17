@@ -8,7 +8,7 @@
     <ion-title style="text-align: center; margin-left: 100px;">
       Your Finances
     </ion-title>
-    <p slot="end" style="margin-right: 20px;">Actual Balance: {{currentBalance}} €</p>
+    <p slot="end" style="margin-right: 20px;" [ngStyle]="{ color: balanceColor }">Actual Balance: {{ currentBalance }} €</p>
   </ion-toolbar>
 </ion-header>
 

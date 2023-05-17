@@ -21,7 +21,11 @@ const routes: Routes = [
   {
     path: 'tipcalc',
     loadChildren: () => import('./tipcalc/tipcalc.module').then( m => m.TipcalcPageModule)
+  },  {
+    path: 'category',
+    loadChildren: () => import('./category/category.module').then( m => m.CategoryPageModule)
   },
+
 
 
 

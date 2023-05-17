@@ -1,0 +1,23 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-icon name="home" (click)="home()" class="home"></ion-icon>
+        </ion-col>
+        <ion-col>
+          <ion-title style="text-align: center; font-family: Arial, Helvetica, sans-serif;">Declare Category</ion-title>
+        </ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<div class="container">
+  <form id="formulario1" style="display:block;">
+    <h2 class="form-title" style="color: black; margin-left: 25%;">DECLARE CATEGORY</h2><br>
+    <ion-input id="category-input" label="Category" labelPlacement="floating" placeholder="Enter a category" style="color: black;"></ion-input>
+    <ion-button (click)="declareCategory()" class="send" style="margin-left: 40%;">Send</ion-button>
+  </form>
+</div>

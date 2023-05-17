@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HomeLog } from './homeLog.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
-
+import { CategorySelectComponent } from '../category-select/category-select.component'
 import { HomeLogPageRoutingModule } from './homeLog-routing.module';
 
 @NgModule({
@@ -15,6 +15,6 @@ import { HomeLogPageRoutingModule } from './homeLog-routing.module';
     ExploreContainerComponentModule,
     HomeLogPageRoutingModule
   ],
-  declarations: [HomeLog]
+  declarations: [HomeLog, CategorySelectComponent]
 })
 export class HomeLogPageModule {}

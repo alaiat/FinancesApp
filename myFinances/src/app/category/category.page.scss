@@ -4,6 +4,7 @@
   justify-content: center;
   align-items: center;
   height: 100%;
+  width: 100%;
   background-color: whitesmoke;
 }
 
@@ -56,4 +57,9 @@ ion-item {
     border-radius: 15%;
     box-shadow: 0px 0px 20px 5px #039D2E;
     --color: white;
+    }
+
+    .home:hover{
+      cursor: pointer;
+      color: white;
     }

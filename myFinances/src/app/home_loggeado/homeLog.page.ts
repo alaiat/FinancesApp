@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuController, NavController} from '@ionic/angular';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -8,8 +8,9 @@ import { Router } from '@angular/router';
   templateUrl: 'homeLog.page.html',
   styleUrls: ['homeLog.page.scss']
 })
-export class HomeLog {
-
+export class HomeLog{
+  selectedCategory!: string;
+  categoryOptions!: string[];
   constructor(private menuCtrl: MenuController, private afDB: AngularFireDatabase, private afAuth: AngularFireAuth, private router: Router) {}
 
   toggleMenu(){
@@ -164,5 +165,4 @@ export class HomeLog {
       // Mostrar una notificación o mensaje de error aquí
     }
   }
-  
 }

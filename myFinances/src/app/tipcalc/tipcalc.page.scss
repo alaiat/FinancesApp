@@ -1,0 +1,75 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: whitesmoke;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .home:hover{
+    cursor: pointer;
+    color: white;
+  }
+  
+  ion-toolbar {
+  --background: #15DC4E;
+  --color: black;
+  }
+  
+  ion-tab-bar {
+  --background: #15DC4E;
+  --color: black;
+  }
+  
+  ion-button {
+  --background: #15DC4E;
+  --color:black;
+  width: 100px;
+  margin-top: 50px;
+  font-family: Arial, Helvetica, sans-serif;
+  --border-radius: 15%;
+  }
+  
+  ion-button:hover {
+  --background: #039D2E;
+  --border-radius: 15%;
+  border-radius: 15%;
+  box-shadow: 0px 0px 20px 5px #039D2E;
+  --color: white;
+  }
+  
+  ion-item {
+  --background: whitesmoke;
+  --color: black;
+  width: 300px;
+  margin-top: 50px;
+  font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  ion-list {
+  background-color: whitesmoke;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  }
+  
+  ion-content {
+  --background:whitesmoke;
+  }
+  
+  .already {
+  margin-top: 20px; 
+  color: black;
+  }
+  
+  .already:hover {
+  color: #15DC4E;
+  }
+  
+  .home:hover {
+    cursor: pointer;
+  }
+  

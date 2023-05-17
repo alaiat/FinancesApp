@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-icon name="home" (click)="home()" class="home"></ion-icon>
+        </ion-col>
+        <ion-col>
+          <ion-title style="text-align: center; font-family: Arial, Helvetica, sans-serif;">Tip Calculator</ion-title>
+        </ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">Bill Amount</ion-label>
+      <ion-input type="number" [(ngModel)]="billAmount"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Tip Percentage</ion-label>
+      <ion-input type="number" [(ngModel)]="tipPercentage"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Tip Amount</ion-label>
+      <ion-input type="number" [value]="calculateTipAmount()"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Total Amount</ion-label>
+      <ion-input type="number" [value]="calculateTotalAmount()"></ion-input>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,3 +1,28 @@
+.header-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-title {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.header-links {
+  display: flex;
+}
+
+.menu-link {
+  margin-left: 10px;
+  color: black;
+}
+
+.menu-link:hover {
+  color: white;
+}
+
+
 .container {
     display: flex;
     flex-direction: column;

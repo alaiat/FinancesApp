@@ -11,13 +11,13 @@ export class AppComponent {
 
   constructor(private menuController: MenuController, private router: Router) {}
 
-  register() {
-    this.router.navigateByUrl('/register');
+  currency() {
+    this.router.navigateByUrl('/currency');
     this.menuController.close();
   }
 
-  login() {
-    this.router.navigateByUrl('/login');
+  tipCalc() {
+    this.router.navigateByUrl('/tipcalc');
     this.menuController.close();
   }
 }

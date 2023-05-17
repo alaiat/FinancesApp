@@ -1,6 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title style="text-align: center;">
+    <ion-buttons slot="start">
+      <ion-button class="button" (click) = "toggleMenu()">
+        <ion-icon name="menu" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title style="text-align: center; margin-right: 5%;">
       Your Finances
     </ion-title>
   </ion-toolbar>
@@ -52,7 +57,7 @@
         <h2 class="form-title"  style="color: black; margin-left: 25%;">DECLARE INCOME</h2><br>
         <ion-input id="desc-input" label="Description" labelPlacement="floating" placeholder="Enter a description" style="color: black;"></ion-input><br>
         <ion-input id="income-input" label="Income" labelPlacement="floating" placeholder="Enter an income" style="color: black;"></ion-input><br>
-        <ion-button (click)="declareIncome()" class="send">Send</ion-button>
+        <ion-button (click)="declareIncome()" class="send" style="margin-left: 40%;">Send</ion-button>
       </form>
 
       <form id="formulario3" style="display:none;">
@@ -68,7 +73,7 @@
           </ion-item>
         </ion-list>
         <ion-input label="Limit" labelPlacement="floating" placeholder="Enter a limit" style="color: black;"></ion-input><br>
-        <ion-button  (click) ="declareIncome()" class="send">Send</ion-button>
+        <ion-button  (click) ="declareIncome()" class="send" style="margin-left: 40%;">Send</ion-button>
       </form>
       <p id="welcome" style="display: block; color: black;">Welcome to your finances application, now you are logged in.</p>
     </ion-card>

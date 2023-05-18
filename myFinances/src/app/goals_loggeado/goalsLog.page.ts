@@ -12,6 +12,10 @@ export class GoalsLogPage implements OnInit{
   balanceColor: string = '';
   incomeList: any[] = [];
   expenseList: any[] = [];
+  everythingList: any[] = [];
+  showEverything=true;
+  showIncomes=false;
+  showExpenses=false;
   constructor(private menuCtrl: MenuController, private afDB: AngularFireDatabase, private afAuth: AngularFireAuth) {}
 
 
@@ -23,6 +27,21 @@ export class GoalsLogPage implements OnInit{
 
   toggleMenu(){
     this.menuCtrl.toggle();
+  }
+  selectIncomes(){
+    this.showIncomes=true;
+    this.showExpenses=false;
+    this.showEverything=false;
+  }
+  selectExpenses(){
+    this.showIncomes=false;
+    this.showExpenses=true;
+    this.showEverything=false;
+  }
+  selectEverything(){
+    this.showIncomes=false;
+    this.showExpenses=false;
+    this.showEverything=true;
   }
 
   getCurrentUserBalance() {
@@ -45,6 +64,11 @@ export class GoalsLogPage implements OnInit{
       }
     });
   }
+
+  everythingListFunction(){
+    this.everythingList = this.incomeList.concat(this.expenseList);
+    console.log(this.everythingList);
+  }
   getIncomes() {
     this.afAuth.authState.subscribe((user) => {
       if(user){
@@ -53,6 +77,9 @@ export class GoalsLogPage implements OnInit{
           (incomes: any[]) => {
             this.incomeList = incomes;
             console.log(this.incomeList);
+            this.incomeList.sort((a, b) => (a.date < b.date) ? 1 : -1);
+            this.everythingList= this.incomeList;
+
           },
           (error) => {
             console.error('Error retrieving user incomes', error);
@@ -71,6 +98,10 @@ export class GoalsLogPage implements OnInit{
           (incomes: any[]) => {
             this.expenseList = incomes;
             console.log(this.expenseList);
+            this.expenseList.sort((a, b) => (a.date < b.date) ? 1 : -1);
+            this.everythingList= this.everythingList.concat(this.expenseList);
+            this.everythingList.sort((a, b) => (a.date < b.date) ? 1 : -1);
+            console.log(this.everythingList);
           },
           (error) => {
             console.error('Error retrieving user expenses', error);

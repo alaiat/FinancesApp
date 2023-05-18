@@ -14,26 +14,64 @@
 
 <!--Contenido dentro de la tab-->
 <ion-content>
-  <ion-list>
-    <ion-card-title>Incomes</ion-card-title>
-    <ion-card *ngFor="let item of incomeList">
+  <ion-segment value="default">
+    <ion-segment-button value="default" (click)="selectEverything()">
+      <ion-label>Everything</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="segment"(click)="selectExpenses()">
+      <ion-label>Expenses</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="segment1"(click)="selectIncomes()">
+      <ion-label>Incomes</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-content *ngIf="showEverything">
+    <ion-card-title>Your movements</ion-card-title>
+    <ion-card  *ngFor="let item of everythingList">
+      <ion-card-header>
+        <u>{{ item.incomeDesc ? item.incomeDesc : item.category+": "+item.description }}</u>
+      </ion-card-header>
+      <ion-card-content  [ngStyle]="{ color: item.quantity ? 'red' : 'green' }">
+        {{ item.incomeValue ? "+"+item.incomeValue : "-"+item.quantity}}
+      </ion-card-content>
+      <ion-card-content>
+        {{"Date: "+item.date}}
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
+  <ion-content *ngIf="showExpenses">
+    <ion-card-title>Your expenses</ion-card-title>
+    <ion-card  *ngFor="let item of expenseList">
+      <ion-card-header>
+        <u>{{ item.category+": "+item.description }}</u>
+      </ion-card-header>
+      <ion-card-content  [ngStyle]="{ color:'red' }">
+        {{"-"+item.quantity}}
+      </ion-card-content>
+      <ion-card-content>
+        {{"Date: "+item.date}}
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
+  <ion-content *ngIf="showIncomes">
+    <ion-card-title>Your incomes</ion-card-title>
+    <ion-card  *ngFor="let item of incomeList">
       <ion-card-header>
         <u>{{ item.incomeDesc }}</u>
       </ion-card-header>
-      <ion-card-content [ngStyle]="{ color: 'green'}">
-        +{{ item.incomeValue }}
+      <ion-card-content  [ngStyle]="{ color: 'green' }">
+        {{ "+"+item.incomeValue}}
+      </ion-card-content>
+      <ion-card-content>
+        {{"Date: "+item.date}}
       </ion-card-content>
     </ion-card>
-    <ion-card-title>Expenses</ion-card-title>
-    <ion-card *ngFor="let item of expenseList">
-      <ion-card-header>
-        <u>{{ item.category }}: {{ item.description }}</u>
-      </ion-card-header>
-      <ion-card-content [ngStyle]="{ color: 'red'}">
-        -{{ item.quantity }}
-      </ion-card-content>
-    </ion-card>
-  </ion-list>
+  </ion-content>
+
+
+
+
 
 </ion-content>
 

@@ -13,23 +13,24 @@
 </ion-header>
 
 <!--Contenido dentro de la tab-->
-<ion-content>
-  <ion-segment value="default">
-    <ion-segment-button value="default" (click)="selectEverything()">
-      <ion-label>Everything</ion-label>
+<ion-content style="background-color: whitesmoke;">
+  <ion-segment value="default" style="background-color: whitesmoke;">
+    <ion-segment-button style="background-color: whitesmoke;" value="default" (click)="selectEverything()">
+      <ion-label style="background-color: whitesmoke; color: black;">Everything</ion-label>
     </ion-segment-button>
     <ion-segment-button value="segment"(click)="selectExpenses()">
-      <ion-label>Expenses</ion-label>
+      <ion-label style="background-color: whitesmoke; color: black;">Expenses</ion-label>
     </ion-segment-button>
     <ion-segment-button value="segment1"(click)="selectIncomes()">
-      <ion-label>Incomes</ion-label>
+      <ion-label style="background-color: whitesmoke; color: black;">Incomes</ion-label>
     </ion-segment-button>
   </ion-segment>
 
-  <ion-content *ngIf="showEverything">
-    <ion-card-title>Your movements</ion-card-title>
-    <ion-card  *ngFor="let item of everythingList">
-      <ion-card-header>
+  <ion-content *ngIf="showEverything" style="background-color: whitesmoke;">
+    <ion-list style="background-color: whitesmoke;">
+    <ion-card-title style="background-color: whitesmoke; color: black;">Your movements</ion-card-title>
+    <ion-card  *ngFor="let item of everythingList" style="background-color: whitesmoke; border: 2px black solid;">
+      <ion-card-header style="background-color: whitesmoke;">
         <u>{{ item.incomeDesc ? item.incomeDesc : item.category+": "+item.description }}</u>
       </ion-card-header>
       <ion-card-content  [ngStyle]="{ color: item.quantity ? 'red' : 'green' }">
@@ -39,11 +40,13 @@
         {{"Date: "+item.date}}
       </ion-card-content>
     </ion-card>
+  </ion-list>
   </ion-content>
-  <ion-content *ngIf="showExpenses">
-    <ion-card-title>Your expenses</ion-card-title>
-    <ion-card  *ngFor="let item of expenseList">
-      <ion-card-header>
+  <ion-content *ngIf="showExpenses" style="background-color: whitesmoke;">
+    <ion-list style="background-color: whitesmoke;">
+    <ion-card-title style="background-color: whitesmoke; color: black;">Your expenses</ion-card-title>
+    <ion-card  *ngFor="let item of expenseList" style="background-color: whitesmoke; border: 2px black solid;">
+      <ion-card-header style="background-color: whitesmoke;">
         <u>{{ item.category+": "+item.description }}</u>
       </ion-card-header>
       <ion-card-content  [ngStyle]="{ color:'red' }">
@@ -53,11 +56,13 @@
         {{"Date: "+item.date}}
       </ion-card-content>
     </ion-card>
+    </ion-list>
   </ion-content>
-  <ion-content *ngIf="showIncomes">
-    <ion-card-title>Your incomes</ion-card-title>
-    <ion-card  *ngFor="let item of incomeList">
-      <ion-card-header>
+  <ion-content *ngIf="showIncomes" style="background-color: whitesmoke;">
+    <ion-list style="background-color: whitesmoke;">
+    <ion-card-title style="background-color: whitesmoke; color: black;">Your incomes</ion-card-title>
+    <ion-card  *ngFor="let item of incomeList" style="background-color: whitesmoke; border: 2px black solid;">
+      <ion-card-header style="background-color: whitesmoke;">
         <u>{{ item.incomeDesc }}</u>
       </ion-card-header>
       <ion-card-content  [ngStyle]="{ color: 'green' }">
@@ -67,6 +72,7 @@
         {{"Date: "+item.date}}
       </ion-card-content>
     </ion-card>
+    </ion-list>
   </ion-content>
 
 

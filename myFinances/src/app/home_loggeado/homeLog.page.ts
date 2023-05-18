@@ -306,4 +306,8 @@ export class HomeLog implements OnInit{
       alert('Please fill all the fields correctly');
     }
   }
+
+  bulbTips(){
+    this.router.navigateByUrl('/bulb-tips');
+  }
 }

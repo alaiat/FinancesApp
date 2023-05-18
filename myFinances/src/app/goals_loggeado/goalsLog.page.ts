@@ -10,10 +10,15 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 export class GoalsLogPage implements OnInit{
   currentBalance!: number;
   balanceColor: string = '';
+  incomeList: any[] = [];
+  expenseList: any[] = [];
   constructor(private menuCtrl: MenuController, private afDB: AngularFireDatabase, private afAuth: AngularFireAuth) {}
+
 
   ngOnInit() {
     this.getCurrentUserBalance();
+    this.getIncomes();
+    this.getExpenses();
   }
 
   toggleMenu(){
@@ -40,4 +45,44 @@ export class GoalsLogPage implements OnInit{
       }
     });
   }
+  getIncomes() {
+    this.afAuth.authState.subscribe((user) => {
+      if(user){
+        const incomesRef = this.afDB.list(`users/${user.uid}/income`);
+        incomesRef.valueChanges().subscribe(
+          (incomes: any[]) => {
+            this.incomeList = incomes;
+            console.log(this.incomeList);
+          },
+          (error) => {
+            console.error('Error retrieving user incomes', error);
+          }
+        );
+      }
+    });
+
+
+  }
+  getExpenses() {
+    this.afAuth.authState.subscribe((user) => {
+      if(user){
+        const expenseRef = this.afDB.list(`users/${user.uid}/expenses`);
+        expenseRef.valueChanges().subscribe(
+          (incomes: any[]) => {
+            this.expenseList = incomes;
+            console.log(this.expenseList);
+          },
+          (error) => {
+            console.error('Error retrieving user expenses', error);
+          }
+        );
+      }
+    });
+
+
+  }
+
+
+
+
 }

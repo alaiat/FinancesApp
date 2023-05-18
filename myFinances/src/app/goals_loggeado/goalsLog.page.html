@@ -13,12 +13,25 @@
 </ion-header>
 
 <!--Contenido dentro de la tab-->
-<ion-content [fullscreen]="true">
-  <div class="container">
-    <h2 class="title" style="color: black;">LOGGEADO</h2>
-    <p class="description" style="color: black;">Here you can keep track of your income and expenses</p>
-    <h5 style="color: black;"><u>Actual Balance:</u> 200€</h5>
-  </div>
+<ion-content>
+  <ion-list>
+    <ion-card *ngFor="let item of incomeList">
+      <ion-card-header>
+        {{ item.incomeDesc }}
+      </ion-card-header>
+      <ion-card-content>
+        +{{ item.incomeValue }}
+      </ion-card-content>
+    </ion-card>
+    <ion-card *ngFor="let item of expenseList">
+      <ion-card-header>
+        {{ item.category }}: {{ item.description }}
+      </ion-card-header>
+      <ion-card-content>
+        -{{ item.quantity }}
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
 
 </ion-content>
 

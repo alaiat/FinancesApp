@@ -3,6 +3,8 @@ import { MenuController, NavController} from '@ionic/angular';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
+import { format, parseISO } from 'date-fns';
+
 import { take } from 'rxjs/operators';
 @Component({
   selector: 'app-homeLog',
@@ -14,14 +16,20 @@ export class HomeLog implements OnInit{
   categoryOptions!: string[];
   currentBalance!: number;
   balanceColor: string = '';
+  selectedDate: string=" ";
+  extractedDate: string=" ";
   constructor(private menuCtrl: MenuController, private afDB: AngularFireDatabase, private afAuth: AngularFireAuth, private router: Router) {}
 
   ngOnInit() {
     this.getCurrentUserBalance();
+    console.log(this.selectedDate);
   }
   toggleMenu(){
     this.menuCtrl.toggle();
   }
+
+
+
   mostrarFormulario1() {
     const buttons = document.getElementById("buttonContainer")
     if (buttons!==null){
@@ -128,16 +136,16 @@ export class HomeLog implements OnInit{
   declareIncome() {
     const incomeValue = (document.getElementById('income-input') as HTMLInputElement).value;
     const incomeDesc = (document.getElementById('desc-input') as HTMLInputElement).value;
-  
+
     this.afAuth.currentUser.then((user) => {
       if (user) {
         const balanceRef = this.afDB.object<number>(`users/${user.uid}/balance`);
-  
+
         // Obtener el balance actual del usuario
         balanceRef.valueChanges().pipe(take(1)).subscribe((currentBalance) => {
           const currentBalanceNumber = typeof currentBalance === 'number' ? currentBalance : 0;
           const newBalance = currentBalanceNumber + Number(incomeValue);
-  
+
           // Actualizar el balance en la base de datos
           balanceRef.set(newBalance).then(() => {
             const incomeRef = this.afDB.list(`users/${user.uid}/income`);
@@ -160,27 +168,29 @@ export class HomeLog implements OnInit{
       console.error('Error', error);
     });
   }
-  
+
 
   async declareExpense() {
     const description = (document.getElementById('description-input') as HTMLInputElement).value;
     const category = (document.getElementById('category-select') as HTMLIonSelectElement).value;
     const quantity = (document.getElementById('quantity-input') as HTMLInputElement).value;
-  
+    const date = this.selectedDate;
+
+    console.log(date);
     try {
       const currentUser = await this.afAuth.currentUser;
       if (currentUser) {
         const balanceRef = this.afDB.object<number>(`users/${currentUser.uid}/balance`);
-  
+
         // Obtener el balance actual del usuario
         balanceRef.valueChanges().pipe(take(1)).subscribe((currentBalance) => {
           const currentBalanceNumber = typeof currentBalance === 'number' ? currentBalance : 0;
           const newBalance = currentBalanceNumber - Number(quantity);
-  
+
           // Actualizar el balance en la base de datos
           balanceRef.set(newBalance).then(() => {
             const expenseRef = this.afDB.list(`users/${currentUser.uid}/expenses`);
-            expenseRef.push({ description, category, quantity, createdAt: Date.now()}).then(() => {
+            expenseRef.push({ description, category, quantity,  createdAt: Date.now()}).then(() => {
               console.log('Expense successfully saved!');
               alert('Expense successfully saved!');
               (document.getElementById('description-input') as HTMLInputElement).value = '';
@@ -202,7 +212,11 @@ export class HomeLog implements OnInit{
       // Mostrar una notificación o mensaje de error aquí
     }
   }
-  
+  dateChange(){
+    const dateFromIonDatetime = '2021-06-04T14:23:00-04:00';
+    this.extractedDate = format(parseISO(dateFromIonDatetime), 'MMM d, yyyy');
+    console.log(this.extractedDate);
+  }
 
   getCurrentUserBalance() {
     this.afAuth.authState.subscribe((user) => {
@@ -224,5 +238,5 @@ export class HomeLog implements OnInit{
       }
     });
   }
-  
+
 }

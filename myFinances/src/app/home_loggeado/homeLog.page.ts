@@ -5,6 +5,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { format, parseISO } from 'date-fns';
 
+
 import { take } from 'rxjs/operators';
 @Component({
   selector: 'app-homeLog',
@@ -18,17 +19,19 @@ export class HomeLog implements OnInit{
   categoryOptions2!: string[];
   currentBalance!: number;
   balanceColor: string = '';
-  selectedDate: string=" ";
-  extractedDate: string=" ";
+  selectedDateExpense: string = new Date().toISOString();
+  extractedDateExpense: string = "";
+  selectedDateIncome: string = new Date().toISOString();
+  extractedDateIncome: string = "";
   constructor(private menuCtrl: MenuController, private afDB: AngularFireDatabase, private afAuth: AngularFireAuth, private router: Router) {}
 
   ngOnInit() {
     this.getCurrentUserBalance();
-    console.log(this.selectedDate);
   }
   toggleMenu(){
     this.menuCtrl.toggle();
   }
+
 
 
 
@@ -138,7 +141,8 @@ export class HomeLog implements OnInit{
   declareIncome() {
     const incomeValue = (document.getElementById('income-input') as HTMLInputElement).value;
     const incomeDesc = (document.getElementById('desc-input') as HTMLInputElement).value;
-
+    const date= this.extractedDateIncome;
+    console.log(date);
     this.afAuth.currentUser.then((user) => {
       if (user) {
         const balanceRef = this.afDB.object<number>(`users/${user.uid}/balance`);
@@ -151,7 +155,7 @@ export class HomeLog implements OnInit{
           // Actualizar el balance en la base de datos
           balanceRef.set(newBalance).then(() => {
             const incomeRef = this.afDB.list(`users/${user.uid}/income`);
-            incomeRef.push({ incomeDesc, incomeValue, createdAt: Date.now()}).then(() => {
+            incomeRef.push({ incomeDesc, incomeValue, date}).then(() => {
               console.log('Income successfully saved!');
               alert('Income successfully saved!');
               (document.getElementById('income-input') as HTMLInputElement).value = '';
@@ -169,6 +173,8 @@ export class HomeLog implements OnInit{
     }).catch((error) => {
       console.error('Error', error);
     });
+    this.cerrarFormulario('formulario2');
+
   }
 
 
@@ -176,7 +182,7 @@ export class HomeLog implements OnInit{
     const description = (document.getElementById('description-input') as HTMLInputElement).value;
     const category = (document.getElementById('category-select') as HTMLIonSelectElement).value;
     const quantity = (document.getElementById('quantity-input') as HTMLInputElement).value;
-    const date = this.selectedDate;
+    const date = this.extractedDateExpense;
 
     console.log(date);
     try {
@@ -192,7 +198,7 @@ export class HomeLog implements OnInit{
           // Actualizar el balance en la base de datos
           balanceRef.set(newBalance).then(() => {
             const expenseRef = this.afDB.list(`users/${currentUser.uid}/expenses`);
-            expenseRef.push({ description, category, quantity,  createdAt: Date.now()}).then(() => {
+            expenseRef.push({ description, category, quantity,  date}).then(() => {
               console.log('Expense successfully saved!');
               alert('Expense successfully saved!');
               (document.getElementById('description-input') as HTMLInputElement).value = '';
@@ -213,13 +219,16 @@ export class HomeLog implements OnInit{
       console.error('Error', error);
       // Mostrar una notificación o mensaje de error aquí
     }
+    this.cerrarFormulario('formulario1');
   }
-  dateChange(){
-    const dateFromIonDatetime = '2021-06-04T14:23:00-04:00';
-    this.extractedDate = format(parseISO(dateFromIonDatetime), 'MMM d, yyyy');
-    console.log(this.extractedDate);
+  dateChangeExpense(){
+    this.extractedDateExpense = this.selectedDateExpense.split('T')[0];
+    console.log("expense: "+this.extractedDateExpense);
   }
-
+  dateChangeIncome(){
+    this.extractedDateIncome = this.selectedDateIncome.split('T')[0];
+    console.log("income: "+this.extractedDateIncome);
+  }
   getCurrentUserBalance() {
     this.afAuth.authState.subscribe((user) => {
       if (user) {
@@ -251,7 +260,7 @@ export class HomeLog implements OnInit{
         const currentUser = await this.afAuth.currentUser;
         if (currentUser) {
           const categoriesRef = this.afDB.list(`users/${currentUser.uid}/categories`);
-    
+
           categoriesRef.snapshotChanges().pipe(take(1)).subscribe((snapshot) => {
             const categories = snapshot.map((categorySnapshot) => {
               const data = categorySnapshot.payload.val() as { category: string; limit: number };
@@ -260,12 +269,12 @@ export class HomeLog implements OnInit{
                 category: data.category,
                 limit: data.limit
               };
-            });          
-    
+            });
+
             const selectedCategory = categories.find((c) => c.category === category);
             if (selectedCategory) {
               selectedCategory.limit = Number(limit);
-    
+
               const updatedCategory = {
                 category: selectedCategory.category,
                 limit: selectedCategory.limit
@@ -296,5 +305,5 @@ export class HomeLog implements OnInit{
     }else{
       alert('Please fill all the fields correctly');
     }
-  } 
+  }
 }

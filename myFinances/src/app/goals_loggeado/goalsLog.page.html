@@ -15,19 +15,21 @@
 <!--Contenido dentro de la tab-->
 <ion-content>
   <ion-list>
+    <ion-card-title>Incomes</ion-card-title>
     <ion-card *ngFor="let item of incomeList">
       <ion-card-header>
-        {{ item.incomeDesc }}
+        <u>{{ item.incomeDesc }}</u>
       </ion-card-header>
-      <ion-card-content>
+      <ion-card-content [ngStyle]="{ color: 'green'}">
         +{{ item.incomeValue }}
       </ion-card-content>
     </ion-card>
+    <ion-card-title>Expenses</ion-card-title>
     <ion-card *ngFor="let item of expenseList">
       <ion-card-header>
-        {{ item.category }}: {{ item.description }}
+        <u>{{ item.category }}: {{ item.description }}</u>
       </ion-card-header>
-      <ion-card-content>
+      <ion-card-content [ngStyle]="{ color: 'red'}">
         -{{ item.quantity }}
       </ion-card-content>
     </ion-card>

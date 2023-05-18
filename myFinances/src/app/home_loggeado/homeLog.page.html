@@ -60,9 +60,9 @@
     <form id="formulario3" style="display:none;">
       <button class="close-button" (click)="cerrarFormulario('formulario3')" style="color: black; background-color: whitesmoke;"><u>Close</u></button>
       <h2 class="form-title" style="color: black; margin-left: 19%;">DECLARE CATEGORY LIMIT</h2><br>
-      <category-select></category-select>
-      <ion-input label="Limit" labelPlacement="floating" placeholder="Enter a limit" style="color: black;"></ion-input><br>
-      <ion-button (click)="declareIncome()" class="send" style="margin-left: 40%;">Send</ion-button>
+      <category-select-bi style="background-color: #f5f5f5;"></category-select-bi>
+      <ion-input id="limit-input" label="Limit" labelPlacement="floating" placeholder="Enter a limit" style="color: black;"></ion-input><br>
+      <ion-button (click)="declareCategoryLimit()" class="send" style="margin-left: 40%;">Send</ion-button>
     </form>
     <p id="welcome" style="display: block; color: black;">Welcome to your finances application, now you are logged in.</p>
   </ion-card>

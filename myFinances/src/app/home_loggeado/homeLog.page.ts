@@ -14,6 +14,8 @@ import { take } from 'rxjs/operators';
 export class HomeLog implements OnInit{
   selectedCategory!: string;
   categoryOptions!: string[];
+  selectedCategory2!: string;
+  categoryOptions2!: string[];
   currentBalance!: number;
   balanceColor: string = '';
   selectedDate: string=" ";
@@ -239,4 +241,60 @@ export class HomeLog implements OnInit{
     });
   }
 
+  async declareCategoryLimit() {
+    const category = (document.getElementById('category-select-bi') as HTMLIonSelectElement).value;
+    console.log(category);
+    const limit = (document.getElementById('limit-input') as HTMLInputElement).value;
+    console.log(limit);
+    if(category != '' && parseInt(limit) >= -1){
+      try {
+        const currentUser = await this.afAuth.currentUser;
+        if (currentUser) {
+          const categoriesRef = this.afDB.list(`users/${currentUser.uid}/categories`);
+    
+          categoriesRef.snapshotChanges().pipe(take(1)).subscribe((snapshot) => {
+            const categories = snapshot.map((categorySnapshot) => {
+              const data = categorySnapshot.payload.val() as { category: string; limit: number };
+              return {
+                key: categorySnapshot.key,
+                category: data.category,
+                limit: data.limit
+              };
+            });          
+    
+            const selectedCategory = categories.find((c) => c.category === category);
+            if (selectedCategory) {
+              selectedCategory.limit = Number(limit);
+    
+              const updatedCategory = {
+                category: selectedCategory.category,
+                limit: selectedCategory.limit
+              };
+              if(selectedCategory.key){
+                categoriesRef.update(selectedCategory.key, updatedCategory).then(() => {
+                  console.log('Category limit successfully updated!');
+                  alert('Category limit successfully updated!');
+                  (document.getElementById('category-select-bi') as HTMLIonSelectElement).value = '';
+                  (document.getElementById('limit-input') as HTMLInputElement).value = '';
+                }).catch((error) => {
+                  console.error('Error updating category limit', error);
+                });
+              }
+            } else {
+              console.log('Category not found');
+              // Mostrar una notificación o mensaje de error aquí
+            }
+          });
+        } else {
+          console.log('No user found');
+          // Mostrar una notificación o mensaje de error aquí
+        }
+      } catch (error) {
+        console.error('Error', error);
+        // Mostrar una notificación o mensaje de error aquí
+      }
+    }else{
+      alert('Please fill all the fields correctly');
+    }
+  } 
 }

@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HomeLog } from './homeLog.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 import { CategorySelectComponent } from '../category-select/category-select.component'
+import { CategorySelectBiComponent } from '../category-select-bi/category-select-bi.component'
 import { HomeLogPageRoutingModule } from './homeLog-routing.module';
 
 @NgModule({
@@ -15,6 +16,6 @@ import { HomeLogPageRoutingModule } from './homeLog-routing.module';
     ExploreContainerComponentModule,
     HomeLogPageRoutingModule
   ],
-  declarations: [HomeLog, CategorySelectComponent]
+  declarations: [HomeLog, CategorySelectComponent, CategorySelectBiComponent]
 })
 export class HomeLogPageModule {}

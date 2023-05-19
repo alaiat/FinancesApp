@@ -22,6 +22,10 @@ export class ExpenseCheckPage implements OnInit {
     this.getCategories();
   }
 
+  home() {
+    this.router.navigateByUrl('/tabs/home_loggeado');
+  }
+
   getExpenses() {
     this.afAuth.authState.subscribe((user) => {
       if(user){

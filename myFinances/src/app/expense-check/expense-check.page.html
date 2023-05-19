@@ -1,19 +1,29 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Category check</ion-title>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-icon name="home" (click)="home()" class="home"></ion-icon>
+        </ion-col>
+        <ion-col>
+          <ion-title style="text-align: center; font-family: Arial, Helvetica, sans-serif;">Category Check</ion-title>
+        </ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card *ngFor="let category of categoryList">
+  <ion-card *ngFor="let category of categoryList" style="background-color: whitesmoke; border: 2px black solid;">
     <ion-card-header>
-      <ion-card-title>{{category.category}}</ion-card-title>
-      <ion-card-subtitle *ngIf="category.limit!==-1">Limit: {{category.limit}}</ion-card-subtitle>
-      <ion-card-subtitle *ngIf="category.limit===-1">There is no limit</ion-card-subtitle>
+      <ion-card-title style="color: black;">{{category.category}}</ion-card-title>
+      <ion-card-subtitle *ngIf="category.limit!==-1"><p style="color: black;">Limit: {{category.limit}}</p></ion-card-subtitle>
+      <ion-card-subtitle *ngIf="category.limit===-1"><p style="color: black;">There is no limit</p></ion-card-subtitle>
     </ion-card-header>
 
     <ion-card-content>
-     You have spent:  {{getExpenseAmount(category.category)}}
+     <p style="color: black;">You have spent:  {{getExpenseAmount(category.category)}}</p>
     </ion-card-content>
 
     <ion-button fill="clear" (click)="showExpenses()">Movements</ion-button>

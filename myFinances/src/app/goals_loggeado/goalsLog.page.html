@@ -31,13 +31,13 @@
     <ion-card-title style="background-color: whitesmoke; color: black;">Your movements</ion-card-title>
     <ion-card  *ngFor="let item of everythingList" style="background-color: whitesmoke; border: 2px black solid;">
       <ion-card-header style="background-color: whitesmoke;">
-        <u>{{ item.incomeDesc ? item.incomeDesc : item.category+": "+item.description }}</u>
+        <u style="color: black;">{{ item.incomeDesc ? item.incomeDesc : item.category+": "+item.description }}</u>
       </ion-card-header>
       <ion-card-content  [ngStyle]="{ color: item.quantity ? 'red' : 'green' }">
         {{ item.incomeValue ? "+"+item.incomeValue : "-"+item.quantity}}
       </ion-card-content>
       <ion-card-content>
-        {{"Date: "+item.date}}
+        <p style="color: black;">{{"Date: "+item.date}}</p>
       </ion-card-content>
     </ion-card>
   </ion-list>
@@ -50,13 +50,13 @@
 
     <ion-card  *ngFor="let item of filterExpenseList" style="background-color: whitesmoke; border: 2px black solid;">
       <ion-card-header style="background-color: whitesmoke;">
-        <u>{{ item.category+": "+item.description }}</u>
+        <u style="color: black;">{{ item.category+": "+item.description }}</u>
       </ion-card-header>
       <ion-card-content  [ngStyle]="{ color:'red' }">
         {{"-"+item.quantity}}
       </ion-card-content>
       <ion-card-content>
-        {{"Date: "+item.date}}
+        <p style="color: black;">{{"Date: "+item.date}}</p>
       </ion-card-content>
     </ion-card>
     </ion-list>
@@ -66,13 +66,13 @@
     <ion-card-title style="background-color: whitesmoke; color: black;">Your incomes</ion-card-title>
     <ion-card  *ngFor="let item of incomeList" style="background-color: whitesmoke; border: 2px black solid;">
       <ion-card-header style="background-color: whitesmoke;">
-        <u>{{ item.incomeDesc }}</u>
+        <u style="color: black;">{{ item.incomeDesc }}</u>
       </ion-card-header>
       <ion-card-content  [ngStyle]="{ color: 'green' }">
         {{ "+"+item.incomeValue}}
       </ion-card-content>
       <ion-card-content>
-        {{"Date: "+item.date}}
+        <p style="color: black;">{{"Date: "+item.date}}</p>
       </ion-card-content>
     </ion-card>
     </ion-list>

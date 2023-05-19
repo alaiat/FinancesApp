@@ -21,7 +21,8 @@ const routes: Routes = [
   {
     path: 'tipcalc',
     loadChildren: () => import('./tipcalc/tipcalc.module').then( m => m.TipcalcPageModule)
-  },  {
+  },
+  {
     path: 'category',
     loadChildren: () => import('./category/category.module').then( m => m.CategoryPageModule)
   },
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'bulb-tips',
     loadChildren: () => import('./bulb-tips/bulb-tips.module').then( m => m.BulbTipsPageModule)
+  },
+  {
+    path: 'expense-check',
+    loadChildren: () => import('./expense-check/expense-check.module').then( m => m.ExpenseCheckPageModule)
   },
 
 

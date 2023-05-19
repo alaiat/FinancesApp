@@ -25,5 +25,9 @@ export class AppComponent {
     this.router.navigateByUrl('/profile');
     this.menuController.close();
   }
+  checkCategoryExpenses(){
+    this.router.navigateByUrl('/expense-check');
+    this.menuController.close();
+  }
 }
 

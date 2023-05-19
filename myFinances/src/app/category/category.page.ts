@@ -25,7 +25,7 @@ export class CategoryPage implements OnInit {
       const currentUser = await this.afAuth.currentUser;
       if (currentUser) {
         const categoryRef = this.afDB.list(`users/${currentUser.uid}/categories`);
-        await categoryRef.push({category, limit: -1});
+        await categoryRef.push({category, limit: -1, monthSpent: 0});
         alert('Category successfully saved!');
         (document.getElementById('category-input') as HTMLInputElement).value = '';
       } else {

@@ -29,11 +29,11 @@
 
       <ion-card-content>
         <!-- Add your personal information fields here -->
-        <ion-item>
+        <ion-item style="width: 100%;">
           <ion-avatar style="width: 1000px; height: 200px;">
-            <img [src]="userProfileImage" style="object-fit: cover; width: 1000px; height: 100%;" />
+            <img [src]="userProfileImage" style="object-fit: cover; width: 250px; height: 100%;" />
           </ion-avatar>
-          <input style="width: 100%; margin-left: 50px;" type="file" accept="image/*" (change)="onProfilePictureChange($event)" />
+          <input style="width: 100%;" type="file" accept="image/*" (change)="onProfilePictureChange($event)" />
         </ion-item>                    
 
         <ion-item>

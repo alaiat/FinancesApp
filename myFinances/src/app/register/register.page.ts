@@ -26,13 +26,15 @@ export class RegisterPage implements OnInit {
       this.auth.createUserWithEmailAndPassword(this.user.email, this.user.password).then((r) => {
         if (r?.user) {
           console.log(r.user);
-
+          const currentDate = new Date();
+          const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 2);
           this.afDB.object('users/' + r.user.uid).set({
             name: this.user.name,
             email: this.user.email,
             createdAt: Date.now(),
             password: this.user.password,
-            balance: 0
+            balance: 0,
+            lastExpenseClearDate: firstDayOfMonth.toISOString()
           }).then(() => {
             this.router.navigateByUrl('/login');
           });

@@ -4,8 +4,9 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { format, parseISO } from 'date-fns';
-
+import { AuthService } from '../services/auth.service';
 import { take } from 'rxjs/operators';
+import { resolve } from 'dns';
 @Component({
   selector: 'app-homeLog',
   templateUrl: 'homeLog.page.html',
@@ -22,7 +23,7 @@ export class HomeLog implements OnInit{
   extractedDateExpense: string = new Date().toISOString();
   selectedDateIncome: string = new Date().toISOString();
   extractedDateIncome: string = new Date().toISOString();
-  constructor(private menuCtrl: MenuController, private afDB: AngularFireDatabase, private afAuth: AngularFireAuth, private router: Router) {}
+  constructor(private menuCtrl: MenuController, private afDB: AngularFireDatabase, private afAuth: AngularFireAuth, private router: Router, private authServ: AuthService) {}
 
   ngOnInit() {
     this.getCurrentUserBalance();
@@ -31,7 +32,20 @@ export class HomeLog implements OnInit{
     this.menuCtrl.toggle();
   }
 
-
+  logout(){
+    this.afAuth.signOut()
+    .then(() => {
+      // Cierre de sesión exitoso
+      console.log('Logged out!');
+      this.authServ.setLoggedIn(false);
+      this.router.navigateByUrl('/tabs/home');
+      // Realiza las acciones adicionales que desees después de cerrar sesión
+    })
+    .catch((error) => {
+      // Manejo del error de cierre de sesión
+      console.log('Error logging out:', error);
+    });
+  }
 
 
   mostrarFormulario1() {
@@ -175,38 +189,6 @@ export class HomeLog implements OnInit{
     this.cerrarFormulario('formulario2');
   }
 
-  async sumExpensesByCategory(category: string): Promise<number> {
-    try {
-      const currentUser = await this.afAuth.currentUser;
-      if (currentUser) {
-        const expensesRef = this.afDB.list(`users/${currentUser.uid}/expenses`);
-  
-        return new Promise<number>((resolve, reject) => {
-          expensesRef.snapshotChanges().pipe(take(1)).subscribe((snapshot) => {
-            let totalExpense = 0;
-            snapshot.forEach((expenseSnapshot) => {
-              const data = expenseSnapshot.payload.val() as { category: string; quantity: string };
-              if (data.category === category) {
-                const quantity = parseFloat(data.quantity);
-                if (!isNaN(quantity)) {
-                  totalExpense += quantity;
-                }
-              }
-            });
-  
-            console.log(`Total expenses for category "${category}": ${totalExpense}`);
-            resolve(totalExpense);
-          });
-        });
-      } else {
-        console.log('No user found');
-        throw new Error('No user found');
-      }
-    } catch (error) {
-      console.error('Error', error);
-      throw error;
-    }
-  }
 
   async getCategoryLimit(category: string): Promise<number | null> {
     try {
@@ -242,53 +224,90 @@ export class HomeLog implements OnInit{
       console.error('Error', error);
       throw error;
     }
-  }  
+  }
+
+  async getMonthSpentByCategory(category: string): Promise<number> {
+    try {
+      const currentUser = await this.afAuth.currentUser;
+      if (currentUser) {
+        const categoriesRef = this.afDB.list(`users/${currentUser.uid}/categories`);
+  
+        return new Promise<number>((resolve, reject) => {
+          categoriesRef.snapshotChanges().pipe(take(1)).subscribe((snapshot) => {
+            const categories = snapshot.map((categorySnapshot) => {
+              const data = categorySnapshot.payload.val() as { category: string; monthSpent: number };
+              return {
+                key: categorySnapshot.key,
+                category: data.category,
+                monthSpent: data.monthSpent
+              };
+            });
+  
+            const selectedCategory = categories.find((c) => c.category === category);
+            if (selectedCategory) {
+              resolve(selectedCategory.monthSpent);
+            } else {
+              console.log('Category not found');
+              reject('Category not found');
+            }
+          });
+        });
+      } else {
+        console.log('No user found');
+        return Promise.reject('No user found');
+      }
+    } catch (error) {
+      console.error('Error', error);
+      return Promise.reject(error);
+    }
+  }
   
   async declareExpense() {
     const description = (document.getElementById('description-input') as HTMLInputElement).value;
     const category = (document.getElementById('category-select') as HTMLIonSelectElement).value;
     const quantity = (document.getElementById('quantity-input') as HTMLInputElement).value;
     const date = this.extractedDateExpense;
-    let total: number;
+    
+    let monthSpentPromise = this.getMonthSpentByCategory(category);
+    let monthSpent: number = 0; // Inicializar con un valor predeterminado
+
     try {
-      const limit = await this.getCategoryLimit(category);
+        monthSpent = await monthSpentPromise;
+        let total = monthSpent + Number(quantity);
+        console.log(`Total: ${total}`);
+        const limit = await this.getCategoryLimit(category);
       if (limit !== null) {
-        try {
-          total = await this.sumExpensesByCategory(category);
-          console.log('Total expenses:', total);
-          let totalGehiQuantity = total + Number(quantity);
-          if(totalGehiQuantity > limit){
-            alert('You have exceeded the limit of this category');
-          }
-        } catch (error) {
-          console.error('Error:', error);
+        if(total > limit && limit != -1){
+          alert('You have exceeded the limit of the category');
         }
       } else {
         console.log(`Category "${category}" not found`);
       }
-    } catch (error) {
-      console.error('Error:', error);
-    }
+        } catch (error) {
+        console.error('Error getting month spent', error);
+        }
 
+    this.updateCategorySpent(category, Number(quantity));
     try {
       const currentUser = await this.afAuth.currentUser;
       if (currentUser) {
         const balanceRef = this.afDB.object<number>(`users/${currentUser.uid}/balance`);
-
+    
         // Obtener el balance actual del usuario
         balanceRef.valueChanges().pipe(take(1)).subscribe((currentBalance) => {
           const currentBalanceNumber = typeof currentBalance === 'number' ? currentBalance : 0;
           const newBalance = currentBalanceNumber - Number(quantity);
-
+    
           // Actualizar el balance en la base de datos
           balanceRef.set(newBalance).then(() => {
             const expenseRef = this.afDB.list(`users/${currentUser.uid}/expenses`);
-            expenseRef.push({ description, category, quantity,  date}).then(() => {
+            expenseRef.push({ description, category, quantity, date }).then(() => {
               console.log('Expense successfully saved!');
               alert('Expense successfully saved!');
               (document.getElementById('description-input') as HTMLInputElement).value = '';
               (document.getElementById('category-select') as HTMLIonSelectElement).value = '';
               (document.getElementById('quantity-input') as HTMLInputElement).value = '';
+    
             }).catch((error) => {
               console.error('Error saving expense', error);
             });
@@ -303,7 +322,8 @@ export class HomeLog implements OnInit{
     } catch (error) {
       console.error('Error', error);
       // Mostrar una notificación o mensaje de error aquí
-    }
+    }    
+    
     this.cerrarFormulario('formulario1');
   }
   dateChangeExpense(){
@@ -391,6 +411,58 @@ export class HomeLog implements OnInit{
       alert('Please fill all the fields correctly');
     }
   }
+
+  async updateCategorySpent(category: string, quantity: number) {
+    if (category != '') {
+      try {
+        const currentUser = await this.afAuth.currentUser;
+        if (currentUser) {
+          const categoriesRef = this.afDB.list(`users/${currentUser.uid}/categories`);
+
+          categoriesRef.snapshotChanges().pipe(take(1)).subscribe((snapshot) => {
+            const categories = snapshot.map((categorySnapshot) => {
+              const data = categorySnapshot.payload.val() as { category: string; monthSpent: number };
+              return {
+                key: categorySnapshot.key,
+                category: data.category,
+                monthSpent: data.monthSpent
+              };
+            });
+
+            const selectedCategory = categories.find((c) => c.category === category);
+            if (selectedCategory) {
+
+              const updatedCategory = {
+                category: selectedCategory.category,
+                monthSpent: selectedCategory.monthSpent + quantity
+              };
+              if(selectedCategory.key){
+                categoriesRef.update(selectedCategory.key, updatedCategory).then(() => {
+                  alert('Monthly successfully updated!');
+                }).catch((error) => {
+                  console.error('Error updating category limit', error);
+                });
+              }
+            } else {
+              console.log('Category not found');
+              // Mostrar una notificación o mensaje de error aquí
+            }
+          });
+        } else {
+          console.log('No user found');
+          // Mostrar una notificación o mensaje de error aquí
+        }
+      } catch (error) {
+        console.error('Error', error);
+        // Mostrar una notificación o mensaje de error aquí
+      }
+    } else {
+      alert('Please fill all the fields correctly');
+    }
+  }
+  
+  
+  
 
   bulbTips(){
     this.router.navigateByUrl('/bulb-tips');

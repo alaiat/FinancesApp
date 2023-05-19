@@ -13,17 +13,26 @@ export class SettingsLogPage implements OnInit{
   balanceColor: string = '';
   constructor(private menuCtrl: MenuController, private router:Router, private afDB: AngularFireDatabase, private afAuth: AngularFireAuth) {}
 
+
   ngOnInit() {
     this.getCurrentUserBalance();
   }
+
 
   toggleMenu(){
     this.menuCtrl.toggle();
   }
 
+
   declare(){
     this.router.navigateByUrl('/category');
   }
+
+
+  remove(){
+    this.router.navigateByUrl('/remove-category');
+  }
+
 
   getCurrentUserBalance() {
     this.afAuth.authState.subscribe((user) => {

@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-icon name="home" (click)="home()" class="home"></ion-icon>
+        </ion-col>
+        <ion-col>
+          <ion-title style="text-align: center; font-family: Arial, Helvetica, sans-serif;">Remove Category</ion-title>
+        </ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+
+<div class="container">
+  <form id="formulario1" style="display:block;">
+    <h2 class="form-title" style="color: black; margin-left: 25%;">REMOVE CATEGORY</h2><br>
+    <category-select-lau style="background-color: #f5f5f5;"></category-select-lau>
+    <ion-button (click)="removeCategory()" class="send" style="margin-left: 40%;">Remove</ion-button>
+  </form>
+</div>

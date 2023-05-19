@@ -37,7 +37,11 @@ const routes: Routes = [
   {
     path: 'expense-check',
     loadChildren: () => import('./expense-check/expense-check.module').then( m => m.ExpenseCheckPageModule)
+  },  {
+    path: 'remove-category',
+    loadChildren: () => import('./remove-category/remove-category.module').then( m => m.RemoveCategoryPageModule)
   },
+
 
 
 

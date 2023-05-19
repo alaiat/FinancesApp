@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { GoalsLogPage } from './goalsLog.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
-
+import { CategorySelectHiruComponent } from '../category-select-hiru/category-select-hiru.component';
 import { GoalsLogPageRoutingModule } from './goalsLog-routing.module';
 
 @NgModule({
@@ -15,6 +15,6 @@ import { GoalsLogPageRoutingModule } from './goalsLog-routing.module';
     ExploreContainerComponentModule,
     GoalsLogPageRoutingModule
   ],
-  declarations: [GoalsLogPage]
+  declarations: [GoalsLogPage, CategorySelectHiruComponent]
 })
 export class GoalsLogPageModule {}

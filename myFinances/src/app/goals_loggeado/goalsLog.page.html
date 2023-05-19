@@ -45,7 +45,10 @@
   <ion-content *ngIf="showExpenses" style="background-color: whitesmoke;">
     <ion-list style="background-color: whitesmoke;">
     <ion-card-title style="background-color: whitesmoke; color: black;">Your expenses</ion-card-title>
-    <ion-card  *ngFor="let item of expenseList" style="background-color: whitesmoke; border: 2px black solid;">
+    <category-select-hiru (ionChange)="categorySelected()"></category-select-hiru>
+
+
+    <ion-card  *ngFor="let item of filterExpenseList" style="background-color: whitesmoke; border: 2px black solid;">
       <ion-card-header style="background-color: whitesmoke;">
         <u>{{ item.category+": "+item.description }}</u>
       </ion-card-header>

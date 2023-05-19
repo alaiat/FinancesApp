@@ -13,9 +13,13 @@ export class GoalsLogPage implements OnInit{
   incomeList: any[] = [];
   expenseList: any[] = [];
   everythingList: any[] = [];
+  filterExpenseList: any[] = [];
   showEverything=true;
   showIncomes=false;
   showExpenses=false;
+
+  filterList: any[] = [];
+
   constructor(private menuCtrl: MenuController, private afDB: AngularFireDatabase, private afAuth: AngularFireAuth) {}
 
 
@@ -102,6 +106,7 @@ export class GoalsLogPage implements OnInit{
             this.everythingList= this.everythingList.concat(this.expenseList);
             this.everythingList.sort((a, b) => (a.date < b.date) ? 1 : -1);
             console.log(this.everythingList);
+            this.filterExpenseList=this.expenseList;
           },
           (error) => {
             console.error('Error retrieving user expenses', error);
@@ -112,7 +117,22 @@ export class GoalsLogPage implements OnInit{
 
 
   }
+  categorySelected(){
+    this.filterList= (document.getElementById('category-select-hiru') as HTMLIonSelectElement).value;
 
+    if(this.filterList.length==0){
+      this.filterExpenseList=this.expenseList;
+    }else{
+      this.filterExpenseList=[];
+    }
+    for (const expense of this.expenseList) {
+      // Check if the expense's category is included in filterCategories
+      if (this.filterList.includes(expense.category)) {
+        // Add the expense to the newList
+        this.filterExpenseList.push(expense);
+      }
+    }
+  }
 
 
 

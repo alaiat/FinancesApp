@@ -63,9 +63,10 @@ export class ExpenseCheckPage implements OnInit {
     return total;
   }
   showExpenses(){
-    this.router.navigateByUrl('../tabs/goals_loggeado');
+    this.router.navigateByUrl('/tabs/goals_loggeado');
   }
   showLimitPage(){
+    this.router.navigateByUrl('/tabs/home_loggeado');
   }
 
 }

@@ -5,7 +5,6 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { format, parseISO } from 'date-fns';
 
-
 import { take } from 'rxjs/operators';
 @Component({
   selector: 'app-homeLog',
@@ -20,9 +19,9 @@ export class HomeLog implements OnInit{
   currentBalance!: number;
   balanceColor: string = '';
   selectedDateExpense: string = new Date().toISOString();
-  extractedDateExpense: string = "";
+  extractedDateExpense: string = new Date().toISOString();
   selectedDateIncome: string = new Date().toISOString();
-  extractedDateIncome: string = "";
+  extractedDateIncome: string = new Date().toISOString();
   constructor(private menuCtrl: MenuController, private afDB: AngularFireDatabase, private afAuth: AngularFireAuth, private router: Router) {}
 
   ngOnInit() {
@@ -174,17 +173,103 @@ export class HomeLog implements OnInit{
       console.error('Error', error);
     });
     this.cerrarFormulario('formulario2');
-
   }
 
+  async sumExpensesByCategory(category: string): Promise<number> {
+    try {
+      const currentUser = await this.afAuth.currentUser;
+      if (currentUser) {
+        const expensesRef = this.afDB.list(`users/${currentUser.uid}/expenses`);
+  
+        return new Promise<number>((resolve, reject) => {
+          expensesRef.snapshotChanges().pipe(take(1)).subscribe((snapshot) => {
+            let totalExpense = 0;
+            snapshot.forEach((expenseSnapshot) => {
+              const data = expenseSnapshot.payload.val() as { category: string; quantity: string };
+              if (data.category === category) {
+                const quantity = parseFloat(data.quantity);
+                if (!isNaN(quantity)) {
+                  totalExpense += quantity;
+                }
+              }
+            });
+  
+            console.log(`Total expenses for category "${category}": ${totalExpense}`);
+            resolve(totalExpense);
+          });
+        });
+      } else {
+        console.log('No user found');
+        throw new Error('No user found');
+      }
+    } catch (error) {
+      console.error('Error', error);
+      throw error;
+    }
+  }
 
+  async getCategoryLimit(category: string): Promise<number | null> {
+    try {
+      const currentUser = await this.afAuth.currentUser;
+      if (currentUser) {
+        const categoriesRef = this.afDB.list(`users/${currentUser.uid}/categories`);
+  
+        return new Promise<number | null>((resolve, reject) => {
+          categoriesRef.snapshotChanges().pipe(take(1)).subscribe((snapshot) => {
+            const categories = snapshot.map((categorySnapshot) => {
+              const data = categorySnapshot.payload.val() as { category: string; limit: number };
+              return {
+                key: categorySnapshot.key,
+                category: data.category,
+                limit: data.limit
+              };
+            });
+  
+            const selectedCategory = categories.find((c) => c.category === category);
+            if (selectedCategory) {
+              const limit = selectedCategory.limit;
+              resolve(limit);
+            } else {
+              resolve(null); // La categoría no existe
+            }
+          });
+        });
+      } else {
+        console.log('No user found');
+        throw new Error('No user found');
+      }
+    } catch (error) {
+      console.error('Error', error);
+      throw error;
+    }
+  }  
+  
   async declareExpense() {
     const description = (document.getElementById('description-input') as HTMLInputElement).value;
     const category = (document.getElementById('category-select') as HTMLIonSelectElement).value;
     const quantity = (document.getElementById('quantity-input') as HTMLInputElement).value;
     const date = this.extractedDateExpense;
+    let total: number;
+    try {
+      const limit = await this.getCategoryLimit(category);
+      if (limit !== null) {
+        try {
+          total = await this.sumExpensesByCategory(category);
+          console.log('Total expenses:', total);
+          let totalGehiQuantity = total + Number(quantity);
+          if(totalGehiQuantity > limit){
+            alert('You have exceeded the limit of this category');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      } else {
+        console.log(`Category "${category}" not found`);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
 
-    console.log(date);
     try {
       const currentUser = await this.afAuth.currentUser;
       if (currentUser) {
